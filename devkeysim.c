@@ -2,10 +2,53 @@
 //
 
 #include <stdio.h>
+#include <stdarg.h>
+#include "simulator.h"
+#include "utils.h"
+
+#define RUN_AND_CHECK(x) { \
+	SIM_error result; \
+    result=x; \
+    if(result<success){ \
+        debug_log("Error on line %d: [%d] %s.", __LINE__, result, SIM_last_error); \
+        return 1; \
+    } \
+    }
+#define DEBUG_VERBOSE
+
+void debug_log(const char* format, ...) {
+#ifdef DEBUG_VERBOSE
+	va_list ap;
+	va_start(ap, format);
+	vprintf(format, ap);
+	va_end(ap);
+	printf("\n");
+#endif
+}
 
 int main()
 {
-	printf("Starting DEVKEY test simulations...");
+	BTM_KEY devkey;
+	BTM_EXCHANGE_PARAMETERS params;
+	BTM_ECDH_EXHCANGE remote_exchange;
+
+
+	debug_log("DEVKEY cycling test simulator");
+	debug_log("John-Michael O'Brien; University of Colorado, Boulder");
+
+	debug_log("Opening log...");
+
+	RUN_AND_CHECK(SIM_open_log("activity_log.txt"));
+
+	debug_log("Starting DEVKEY test simulations...");
+
+	BTM_start_rotation(&params, devkey);
+	BTM_complete_rotation(devkey, remote_exchange, &params);
+
+	debug_log("Closing up...");
+	RUN_AND_CHECK(SIM_close_log());
+
+	debug_log("Finished!");
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -24,5 +24,16 @@
     <ClCompile Include="utils.c">
       <Filter>Source Files\devkeyapi</Filter>
     </ClCompile>
+    <ClCompile Include="simulator.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simulator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Source Files\devkeyapi</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

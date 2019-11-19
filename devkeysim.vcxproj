@@ -152,7 +152,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="devkeysim.c" />
+    <ClCompile Include="simulator.c" />
     <ClCompile Include="utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simulator.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
