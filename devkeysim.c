@@ -28,7 +28,6 @@ void debug_log(const char* format, ...) {
 
 int main()
 {
-	BTM_KEY devkey;
 	BTM_EXCHANGE_PARAMETERS params;
 	BTM_ECDH_EXHCANGE remote_exchange;
 
@@ -42,22 +41,17 @@ int main()
 
 	debug_log("Starting DEVKEY test simulations...");
 
-	BTM_start_rotation(&params, devkey);
-	BTM_complete_rotation(devkey, remote_exchange, &params);
+	// Make a dummy buffer
+	uint8_t data[360];
+
+	// Process the first "message" (an invitation)
+	BTM_process_message(data, sizeof(data));
+	// Process the second "message" (A parameters set)
+	BTM_process_message(data, sizeof(data));
+
 
 	debug_log("Closing up...");
 	RUN_AND_CHECK(SIM_close_log());
 
 	debug_log("Finished!");
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
